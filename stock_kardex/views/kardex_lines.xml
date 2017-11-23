@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="stock_kardex_line_tree" model="ir.ui.view">
+            <field name="name">stock.kardex.line.view</field>
+            <field name="model">stock.kardex.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="qty_start" />
+                    <field name="qty_in" />		
+                    <field name="qty_out" />		
+                    <field name="qty_balance" />    
+                    <field name="product_uom_id" />
+                </form>
+            </field>
+        </record>
+
+        <record id="view_kardex_line_tree" model="ir.ui.view">
+            <field name="name">stock.kardex.line.tree</field>
+            <field name="model">stock.kardex.line</field>
+            <field name="arch" type="xml">
+                <tree string="Kardex Lines">
+                    <field name="date" />
+                    <field name="picking_id" />	
+                    <field name="qty_start" />
+                    <field name="qty_in" />
+                    <field name="qty_out" />
+                    <field name="qty_balance" />
+                    <field name="product_uom_id" />
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

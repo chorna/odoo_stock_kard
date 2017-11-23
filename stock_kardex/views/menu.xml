@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem
+        id="menu_product_kardex"
+        action="stock_kardex.action_view_wizard"
+        name="Kardex"
+        parent="stock.menu_warehouse_report"/>
+
+</odoo>
