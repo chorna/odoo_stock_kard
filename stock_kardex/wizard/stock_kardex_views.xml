@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>     
+    <data>
         <record id="dedy_yuristiawan_wiz" model="ir.ui.view">
             <field name="name">stock.kardex.wizard.name</field>
             <field name="model">stock.kardex</field>

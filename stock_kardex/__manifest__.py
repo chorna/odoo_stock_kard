@@ -1,5 +1,6 @@
 {
     'name': 'Stock Kardex',
+    'author': 'chorna',
     'version': '1.0',
     'category': 'Stock',
     'description': """
