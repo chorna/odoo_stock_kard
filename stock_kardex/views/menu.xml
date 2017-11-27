@@ -4,7 +4,7 @@
     <menuitem
         id="menu_product_kardex"
         action="stock_kardex.action_view_wizard"
-        name="Kardex"
+        name="Kardex Valorado"
         parent="stock.menu_warehouse_report"/>
 
 </odoo>

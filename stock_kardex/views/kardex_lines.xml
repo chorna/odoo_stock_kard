@@ -9,9 +9,17 @@
             <field name="arch" type="xml">
                 <form>
                     <field name="qty_start" />
-                    <field name="qty_in" />		
-                    <field name="qty_out" />		
-                    <field name="qty_balance" />    
+                    <field name="price_start" />
+                    <field name="total_price_start" />
+                    <field name="qty_in" />
+                    <field name="price_in" />
+                    <field name="total_price_in" />
+                    <field name="qty_out" />
+                    <field name="price_out" />
+                    <field name="total_price_out" />
+                    <field name="qty_balance" />
+                    <field name="price_balance" />
+                    <field name="total_price_balance" />
                     <field name="product_uom_id" />
                 </form>
             </field>
@@ -23,11 +31,19 @@
             <field name="arch" type="xml">
                 <tree string="Kardex Lines">
                     <field name="date" />
-                    <field name="picking_id" />	
+                    <field name="picking_id" />
                     <field name="qty_start" />
+                    <field name="price_start" />
+                    <field name="total_price_start" />
                     <field name="qty_in" />
+                    <field name="price_in" />
+                    <field name="total_price_in" />
                     <field name="qty_out" />
+                    <field name="price_out" />
+                    <field name="total_price_out" />
                     <field name="qty_balance" />
+                    <field name="price_balance" />
+                    <field name="total_price_balance" />
                     <field name="product_uom_id" />
                 </tree>
             </field>

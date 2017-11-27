@@ -24,9 +24,17 @@ class ProductKardex(models.TransientModel):
         cr = self.env.cr
 
         qty_start = 0.0
+        price_start = 0.0
+        total_price_start = 0.0
         qty_balance = 0.0
+        price_balance = 0.0
+        total_price_balance = 0.0
         qty_in = 0.0
+        price_in = 0.0
+        total_price_in = 0.0
         qty_out = 0.0
+        price_out = 0.0
+        total_price_out = 0.0
         product_uom = False
 
         sql2 = """
@@ -43,7 +51,7 @@ class ProductKardex(models.TransientModel):
 
         ## beginning balance in 
         sql = """
-            SELECT sum(product_uom_qty)
+            SELECT SUM(product_uom_qty), AVG(price_unit)
             FROM stock_move where product_id=%s
                 AND date < '%s'
                 AND location_dest_id=%s
@@ -61,10 +69,12 @@ class ProductKardex(models.TransientModel):
 
         if res and res[0]!= None:
             qty_start = res[0]
+            price_start = res[1]
+            total_price_start = qty_start * price_start
 
         ## beginning balance out
         sql = """
-            SELECT SUM(product_uom_qty)
+            SELECT SUM(product_uom_qty), AVG(price_unit)
             FROM stock_move
             WHERE product_id=%s
                 AND date < '%s'
@@ -79,8 +89,10 @@ class ProductKardex(models.TransientModel):
         cr.execute(sql)
         res = cr.fetchone()
 
-        if res and res[0]!= None:
-            qty_start = qty_start - res[0]
+        if res and res[0] != None:
+            qty_start -= res[0]
+            price_start -= res[1]
+            total_price_start = qty_start * price_start
 
         prod = product.browse([self.product_id.id])
         #product_uom = prod.uom_id 
@@ -92,6 +104,8 @@ class ProductKardex(models.TransientModel):
             "qty_in": False,
             "qty_out": False,
             "qty_balance": qty_start,
+            "price_balance": price_start,
+            "total_price_balance": total_price_start,
             #"product_uom_id": product_uom.id,
         }
         stock_kardex_line.create(data)
@@ -111,7 +125,11 @@ class ProductKardex(models.TransientModel):
 
         for sm in stock_move.browse([move.id for move in sm_ids]):
             qty_in = 0.0
+            price_in = 0.0
+            total_price_in = 0.0
             qty_out = 0.0
+            price_out = 0.0
+            total_price_out = 0.0
 
             #uom conversion factor
             factor = 1.0
@@ -119,11 +137,19 @@ class ProductKardex(models.TransientModel):
                 #factor =  product_uom.factor / sm.product_uom.factor 
 
             if sm.location_dest_id == self.location_id:	#incoming, dest = location
-                qty_in = sm.product_uom_qty  * factor				
+                qty_in = sm.product_uom_qty  * factor
+                price_in = sm.price_unit
+                qty_balance = qty_start + qty_in
+                total_price_in = qty_in * price_in
+                price_balance = (total_price_start+total_price_in) / qty_balance
+
             elif sm.location_id == self.location_id:		#outgoing, source = location
                 qty_out = sm.product_uom_qty * factor
-
-            qty_balance = qty_start + qty_in - qty_out
+                price_out = sm.price_unit
+                qty_balance = qty_start - qty_out
+                price_balance = price_start
+                total_price_out = qty_out * price_out
+            total_price_balance = qty_balance * price_balance
 
             name = sm.name if sm.name!=prod.display_name else ""
             partner_name = sm.partner_id.name if sm.partner_id else ""
@@ -139,16 +165,23 @@ class ProductKardex(models.TransientModel):
                     finish_product = "%s:%s" % (mo[0].product_id.name,
                                                 mo[0].batch_number) if mo else ""
 
-
             data = {
                 "stock_kardex_id": self.id,
                 "move_id": sm.id,
                 "picking_id": sm.picking_id.id,
                 "date": sm.date,
                 "qty_start": qty_start,
+                "price_start": price_start,
+                "total_price_start": total_price_start,
                 "qty_in": qty_in,
+                "price_in": price_in,
+                "total_price_in": total_price_in,
                 "qty_out": qty_out,
+                "price_out": price_out,
+                "total_price_out": total_price_out,
                 "qty_balance": qty_balance,
+                "price_balance": price_balance,
+                "total_price_balance": total_price_balance,
                 "product_uom_id": sm.product_uom.id,
                 "name": "%s/ %s/ %s/ %s/ %s/ %s" % (name,
                                                     finish_product,
@@ -159,6 +192,8 @@ class ProductKardex(models.TransientModel):
             }
             stock_kardex_line.create(data)
             qty_start = qty_balance
+            price_start = price_balance
+            total_price_start = total_price_balance
 
         return {
             'name': "Kardex: %s en %s" % (self.product_id.name,
@@ -180,8 +215,16 @@ class ProductKardexLine(models.TransientModel):
     picking_id = fields.Many2one('stock.picking')
     date = fields.Date()
     qty_start = fields.Float('Cantidad Inicial')
+    price_start = fields.Float('Precio Inicial')
+    total_price_start = fields.Float('Precio Total Inicial')
     qty_in = fields.Float('Ingreso')
+    price_in = fields.Float('Precio Ingreso')
+    total_price_in = fields.Float('Precio Total Ingreso')
     qty_out = fields.Float('Salida')
+    price_out = fields.Float('Precio Salida')
+    total_price_out = fields.Float('Precio Total Salida')
     qty_balance = fields.Float('Saldo')
+    price_balance = fields.Float('Precio Saldo')
+    total_price_balance = fields.Float('Precio Total Saldo')
     product_uom_id = fields.Many2one('product.uom', 'UoM')
     name = fields.Char('Nombre')
