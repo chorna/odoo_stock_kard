@@ -8,9 +8,9 @@
     """,
     'depends': ['stock',],
     'data': [
-        'views/menu.xml',
         'views/kardex_lines.xml',
         'wizard/stock_kardex_views.xml',
+        'views/menu.xml',
     ],
     'application': True,
     'installable': True,

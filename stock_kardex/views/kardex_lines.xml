@@ -7,7 +7,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="arch" type="xml">
-                <form>
+                <form string="kardex" create="false" edit="false" import="false">
                     <field name="qty_start" />
                     <field name="price_start" />
                     <field name="total_price_start" />
@@ -29,7 +29,7 @@
             <field name="name">stock.kardex.line.tree</field>
             <field name="model">stock.kardex.line</field>
             <field name="arch" type="xml">
-                <tree string="Kardex Lines">
+                <tree string="Kardex Lines" create="false" import="false">
                     <field name="date" />
                     <field name="picking_id" />
                     <field name="qty_start" />

@@ -3,7 +3,7 @@
 
     <menuitem
         id="menu_product_kardex"
-        action="stock_kardex.action_view_wizard"
+        action="stock_kardex.action_view_kardex_wizard"
         name="Kardex Valorado"
         parent="stock.menu_warehouse_report"/>
 

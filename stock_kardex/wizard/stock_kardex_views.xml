@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="dedy_yuristiawan_wiz" model="ir.ui.view">
+        <record id="kardex_form" model="ir.ui.view">
             <field name="name">stock.kardex.wizard.name</field>
             <field name="model">stock.kardex</field>
             <field name="arch" type="xml">
@@ -32,13 +32,13 @@
             </field>
         </record>
 
-        <record id="action_view_wizard" model="ir.actions.act_window">
+        <record id="action_view_kardex_wizard" model="ir.actions.act_window">
             <field name="name">Kardex</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">stock.kardex</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="dedy_yuristiawan_wiz"/>
+            <field name="view_id" ref="kardex_form"/>
             <field name="target">new</field>
         </record>
     </data>
