@@ -21,24 +21,40 @@
                         </div>
                     </div>
                     <footer>
-                        <button name="create_request" 
-                            string="Finished" type="object" 
+                        <button 
+                            name="create_request" 
+                            string="Apply"
+                            type="object"
+                            context="{'kardex_stock': kardex_stock}"
                             class="btn-primary"/>
-                        <button string="Cancel" 
-                            class="btn-default" 
+                        <button
+                            string="Cancel"
+                            class="btn-default"
                             special="cancel" />
                     </footer>
                 </form>
             </field>
         </record>
 
-        <record id="action_view_kardex_wizard" model="ir.actions.act_window">
-            <field name="name">Kardex</field>
+        <record id="action_view_kardex_valorado_wizard" model="ir.actions.act_window">
+            <field name="name">Kardex Valorado</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">stock.kardex</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="kardex_form"/>
+            <field name="context">{'kardex_stock': False}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_view_kardex_stock_wizard" model="ir.actions.act_window">
+            <field name="name">Kardex Stock</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.kardex</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="kardex_form"/>
+            <field name="context">{'kardex_stock': True}</field>
             <field name="target">new</field>
         </record>
     </data>

@@ -2,8 +2,14 @@
 <odoo>
 
     <menuitem
-        id="menu_product_kardex"
-        action="stock_kardex.action_view_kardex_wizard"
+        id="menu_product_kardex_stock"
+        action="stock_kardex.action_view_kardex_stock_wizard"
+        name="Kardex Stock"
+        parent="stock.menu_warehouse_report"/>
+
+    <menuitem
+        id="menu_product_kardex_valorado"
+        action="stock_kardex.action_view_kardex_valorado_wizard"
         name="Kardex Valorado"
         parent="stock.menu_warehouse_report"/>
 

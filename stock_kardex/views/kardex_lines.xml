@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="stock_kardex_line_tree" model="ir.ui.view">
-            <field name="name">stock.kardex.line.view</field>
-            <field name="model">stock.kardex.line</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="arch" type="xml">
-                <form string="kardex" create="false" edit="false" import="false">
-                    <field name="qty_start" />
-                    <field name="price_start" />
-                    <field name="total_price_start" />
-                    <field name="qty_in" />
-                    <field name="price_in" />
-                    <field name="total_price_in" />
-                    <field name="qty_out" />
-                    <field name="price_out" />
-                    <field name="total_price_out" />
-                    <field name="qty_balance" />
-                    <field name="price_balance" />
-                    <field name="total_price_balance" />
-                    <field name="product_uom_id" />
-                </form>
-            </field>
-        </record>
-
-        <record id="view_kardex_line_tree" model="ir.ui.view">
-            <field name="name">stock.kardex.line.tree</field>
+        <record id="view_kardex_stock_line_tree" model="ir.ui.view">
+            <field name="name">stock.kardex.stock.line.tree</field>
             <field name="model">stock.kardex.line</field>
             <field name="arch" type="xml">
                 <tree string="Kardex Lines" create="false" import="false">
                     <field name="date" />
                     <field name="picking_id" />
                     <field name="qty_start" />
+                    <field name="qty_in" />
+                    <field name="qty_out" />
+                    <field name="qty_balance" />
+                    <field name="product_uom_id" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_kardex_valorado_line_tree" model="ir.ui.view">
+            <field name="name">stock.kardex.valorado.line.tree</field>
+            <field name="model">stock.kardex.line</field>
+            <field name="arch" type="xml">
+                <tree string="Kardex Lines" create="false" import="false">
+                    <field name="date" />
+                    <field name="picking_id" />
+                <!--<field name="qty_start" />
                     <field name="price_start" />
-                    <field name="total_price_start" />
+                    <field name="total_price_start" />-->
                     <field name="qty_in" />
                     <field name="price_in" />
                     <field name="total_price_in" />
@@ -44,7 +36,7 @@
                     <field name="qty_balance" />
                     <field name="price_balance" />
                     <field name="total_price_balance" />
-                    <field name="product_uom_id" />
+<!--                     <field name="product_uom_id" /> -->
                 </tree>
             </field>
         </record>
