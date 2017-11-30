@@ -123,7 +123,7 @@ class ProductKardex(models.TransientModel):
             ], order='date asc')
 
 
-        for sm in stock_move.browse([move.id for move in sm_ids]):
+        for sm in stock_move.browse(sorted([move.id for move in sm_ids])):
             qty_in = 0.0
             price_in = 0.0
             total_price_in = 0.0
