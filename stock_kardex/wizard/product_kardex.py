@@ -212,7 +212,8 @@ class ProductKardex(models.TransientModel):
             'view_mode': 'tree, form',
             'res_model': 'stock.kardex.line',
             'views': [(_view_id, 'tree'), (_view_id, 'graph')],
-            'domain': [('stock_kardex_id', '=', self.id),]
+            'domain': [('stock_kardex_id', '=', self.id),],
+            'target': 'main'
         }
 
 
