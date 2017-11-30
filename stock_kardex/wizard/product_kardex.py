@@ -52,7 +52,8 @@ class ProductKardex(models.TransientModel):
         ## beginning balance in 
         sql = """
             SELECT SUM(product_uom_qty), AVG(price_unit)
-            FROM stock_move where product_id=%s
+            FROM stock_move
+            WHERE product_id=%s
                 AND date < '%s'
                 AND location_dest_id=%s
                 AND id in %s
@@ -114,14 +115,13 @@ class ProductKardex(models.TransientModel):
                     '|',
                     ('location_dest_id','=',self.location_id.id),
                     ('location_id','=',self.location_id.id),
-                    ('product_id', 	'=' , self.product_id.id),
-                    ('date', 		'>=', self.date_start),
-                    ('date', 		'<=', self.date_end),
-                    ('state',		'=',  'done'),
-                    ('id',			'in', move_ids)
+                    ('product_id', '=' , self.product_id.id),
+                    ('date', '>=', self.date_start),
+                    ('date', '<=', self.date_end),
+                    ('state', '=',  'done'),
+                    ('id', 'in', move_ids)
 
             ], order='date asc')
-
 
         for sm in stock_move.browse(sorted([move.id for move in sm_ids])):
             qty_in = 0.0
@@ -203,6 +203,17 @@ class ProductKardex(models.TransientModel):
             else:
                 _ref, _view_id = self.env['ir.model.data'].get_object_reference(
                     'stock_kardex', 'view_kardex_stock_line_tree')
+        try:
+            _graph_view_id = self.env['ir.model.data'].get_object_reference(
+                        'stock_kardex', 'view_kardex_graph')[1]
+            _pivot_view_id = self.env['ir.model.data'].get_object_reference(
+                        'stock_kardex', 'view_kardex_pivot')[1]
+            _calendar_view_id = self.env['ir.model.data'].get_object_reference(
+                        'stock_kardex', 'view_kardex_calendar')[1]
+        except:
+            _graph_view_id = False
+            _pivot_view_id = False
+            _calendar_view_id = False
 
         return {
             'name': "Kardex: %s en %s" % (self.product_id.name,
@@ -211,7 +222,8 @@ class ProductKardex(models.TransientModel):
             'view_type': 'form',
             'view_mode': 'tree, form',
             'res_model': 'stock.kardex.line',
-            'views': [(_view_id, 'tree'), (_view_id, 'graph')],
+            'views': [(_view_id, 'tree'), (_calendar_view_id, 'calendar'),
+                      (_pivot_view_id, 'pivot'), (_graph_view_id, 'graph')],
             'domain': [('stock_kardex_id', '=', self.id),],
             'target': 'main'
         }

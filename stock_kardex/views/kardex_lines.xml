@@ -24,9 +24,6 @@
                 <tree string="Kardex Lines" create="false" import="false">
                     <field name="date" />
                     <field name="picking_id" />
-                <!--<field name="qty_start" />
-                    <field name="price_start" />
-                    <field name="total_price_start" />-->
                     <field name="qty_in" />
                     <field name="price_in" />
                     <field name="total_price_in" />
@@ -36,8 +33,42 @@
                     <field name="qty_balance" />
                     <field name="price_balance" />
                     <field name="total_price_balance" />
-<!--                     <field name="product_uom_id" /> -->
                 </tree>
+            </field>
+        </record>
+
+        <record id="view_kardex_calendar" model="ir.ui.view">
+            <field name="name">stock.kardex.calendar</field>
+            <field name="model">stock.kardex.line</field>
+            <field name="arch" type="xml">
+                <calendar string="Kardex" date_start="date">
+                    <field name="move_id"/>
+                    <field name="qty_balance"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_kardex_pivot">
+            <field name="name">stock.kardex.pivot</field>
+            <field name="model">stock.kardex.line</field>
+            <field name="arch" type="xml">
+                <pivot string="Kardex">
+                    <field name="move_id"/>
+                    <field name="qty_in" type="measure"/>
+                    <field name="qty_out" type="measure"/>
+                    <field name="qty_balance" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_kardex_graph">
+            <field name="name">stock.kardex.graph</field>
+            <field name="model">stock.kardex.line</field>
+            <field name="arch" type="xml">
+                <graph string="Kardex">
+                    <field name="move_id"/>
+                    <field name="qty_balance" type="measure"/>
+                </graph>
             </field>
         </record>
     </data>
