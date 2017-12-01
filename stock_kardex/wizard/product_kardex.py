@@ -17,7 +17,7 @@ class ProductKardex(models.TransientModel):
     line_ids = fields.One2many('stock.kardex.line', 'stock_kardex_id')
 
     @api.multi
-    def create_request(self, context=None):
+    def create_request(self):
         stock_move = self.env['stock.move']
         stock_kardex_line = self.env['stock.kardex.line']
         product = self.env['product.product']
@@ -197,8 +197,9 @@ class ProductKardex(models.TransientModel):
             total_price_start = total_price_balance
 
         _view_id = False
-        if 'kardex_stock' in context.keys():
-            if not context['kardex_stock']:
+
+        if 'kardex_stock' in self.env.context.keys():
+            if not self.env.context['kardex_stock']:
                 _ref, _view_id = self.env['ir.model.data'].get_object_reference(
                     'stock_kardex', 'view_kardex_valorado_line_tree')
             else:
