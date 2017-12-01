@@ -169,6 +169,7 @@ class ProductKardex(models.TransientModel):
                 "stock_kardex_id": self.id,
                 "move_id": sm.id,
                 "picking_id": sm.picking_id.id,
+                "origin": sm.origin,
                 "date": sm.date,
                 "qty_start": qty_start,
                 "price_start": price_start,
@@ -234,6 +235,7 @@ class ProductKardexLine(models.TransientModel):
     stock_kardex_id = fields.Many2one('stock.kardex')
     move_id = fields.Many2one('stock.move')
     picking_id = fields.Many2one('stock.picking')
+    origin = fields.Char("Documento de Origen")
     date = fields.Date()
     qty_start = fields.Float('Cantidad Inicial')
     price_start = fields.Float('Precio Inicial')

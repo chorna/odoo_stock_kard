@@ -8,6 +8,7 @@
                 <tree string="Kardex Lines" create="false" import="false">
                     <field name="date" />
                     <field name="picking_id" />
+                    <field name="origin" />
                     <field name="qty_start" />
                     <field name="qty_in" />
                     <field name="qty_out" />
@@ -24,6 +25,7 @@
                 <tree string="Kardex Lines" create="false" import="false">
                     <field name="date" />
                     <field name="picking_id" />
+                    <field name="origin" />
                     <field name="qty_in" />
                     <field name="price_in" />
                     <field name="total_price_in" />
