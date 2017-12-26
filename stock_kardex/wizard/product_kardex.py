@@ -17,7 +17,7 @@ class ProductKardex(models.TransientModel):
     line_ids = fields.One2many('stock.kardex.line', 'stock_kardex_id')
 
     @api.multi
-    def create_request(self, context=None):
+    def create_request(self):
         stock_move = self.env['stock.move']
         stock_kardex_line = self.env['stock.kardex.line']
         product = self.env['product.product']
